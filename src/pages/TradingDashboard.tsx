@@ -1,6 +1,7 @@
 import React from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { ArrowUpIcon, ArrowDownIcon, ClockIcon, DollarSignIcon, PercentIcon, TrendingUpIcon, CoinsIcon } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 // Mock data - in a real app, this would come from API
 const portfolioData = [{
   name: 'BTC',
@@ -112,15 +113,17 @@ const recentTrades = [{
   time: '2023-06-29 09:11'
 }];
 export function TradingDashboard() {
+  const { t } = useLanguage();
+  
   return <div className="space-y-6 p-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
-          Trading Dashboard
+          {t('dashboard.title')}
         </h1>
         <div className="bg-white dark:bg-gray-800 px-4 py-2 rounded-lg shadow flex items-center">
           <ClockIcon className="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400" />
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            Last updated: 2 minutes ago
+            {t('dashboard.lastUpdated')}
           </span>
         </div>
       </div>
@@ -130,7 +133,7 @@ export function TradingDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Total Balance
+                {t('dashboard.totalBalance')}
               </p>
               <p className="text-2xl font-bold text-gray-900 dark:text-white">
                 $14,235.80
@@ -144,7 +147,7 @@ export function TradingDashboard() {
             <ArrowUpIcon className="h-4 w-4 text-green-500 mr-1" />
             <span className="text-green-500 font-medium">+5.25%</span>
             <span className="text-gray-500 dark:text-gray-400 ml-2">
-              from last month
+              {t('dashboard.fromLastMonth')}
             </span>
           </div>
         </div>
@@ -152,7 +155,7 @@ export function TradingDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Margin Used
+                {t('dashboard.marginUsed')}
               </p>
               <p className="text-2xl font-bold text-gray-900 dark:text-white">
                 $3,850.00
@@ -164,7 +167,7 @@ export function TradingDashboard() {
           </div>
           <div className="mt-4 flex items-center text-sm">
             <span className="text-gray-500 dark:text-gray-400">
-              27% of total balance
+              27% {t('dashboard.ofTotalBalance')}
             </span>
           </div>
         </div>
@@ -172,7 +175,7 @@ export function TradingDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Daily P&L
+                {t('dashboard.dailyPnL')}
               </p>
               <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                 +$320.50
@@ -185,14 +188,14 @@ export function TradingDashboard() {
           <div className="mt-4 flex items-center text-sm">
             <ArrowUpIcon className="h-4 w-4 text-green-500 mr-1" />
             <span className="text-green-500 font-medium">+2.3%</span>
-            <span className="text-gray-500 dark:text-gray-400 ml-2">today</span>
+            <span className="text-gray-500 dark:text-gray-400 ml-2">{t('dashboard.today')}</span>
           </div>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Open Positions
+                {t('dashboard.openPositions')}
               </p>
               <p className="text-2xl font-bold text-gray-900 dark:text-white">
                 12
@@ -204,7 +207,7 @@ export function TradingDashboard() {
           </div>
           <div className="mt-4 flex items-center text-sm">
             <span className="text-gray-500 dark:text-gray-400">
-              Across 5 cryptocurrencies
+              {t('dashboard.acrossCryptos')}
             </span>
           </div>
         </div>
@@ -214,7 +217,7 @@ export function TradingDashboard() {
         {/* Portfolio Allocation */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-            Portfolio Allocation
+            {t('dashboard.portfolioAllocation')}
           </h2>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
@@ -243,7 +246,7 @@ export function TradingDashboard() {
         {/* Account Balance History */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-            Account Balance History
+            {t('dashboard.accountBalanceHistory')}
           </h2>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
@@ -267,7 +270,7 @@ export function TradingDashboard() {
         {/* Profit & Loss Analysis */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-            Profit & Loss Analysis
+            {t('dashboard.profitLossAnalysis')}
           </h2>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
@@ -282,8 +285,8 @@ export function TradingDashboard() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="profit" fill="#10b981" />
-                <Bar dataKey="loss" fill="#ef4444" />
+                <Bar dataKey="profit" fill="#10b981" name={t('dashboard.profit')} />
+                <Bar dataKey="loss" fill="#ef4444" name={t('dashboard.loss')} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -293,7 +296,7 @@ export function TradingDashboard() {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
-            Recent Trades
+            {t('dashboard.recentTrades')}
           </h2>
         </div>
         <div className="overflow-x-auto">
@@ -301,22 +304,22 @@ export function TradingDashboard() {
             <thead>
               <tr className="bg-gray-50 dark:bg-gray-700 text-left">
                 <th className="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Pair
+                  {t('dashboard.pair')}
                 </th>
                 <th className="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Type
+                  {t('dashboard.type')}
                 </th>
                 <th className="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Amount
+                  {t('dashboard.amount')}
                 </th>
                 <th className="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Price
+                  {t('dashboard.price')}
                 </th>
                 <th className="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Value (USDT)
+                  {t('dashboard.value')}
                 </th>
                 <th className="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Time
+                  {t('dashboard.time')}
                 </th>
               </tr>
             </thead>
@@ -327,7 +330,7 @@ export function TradingDashboard() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${trade.type === 'BUY' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'}`}>
-                      {trade.type}
+                      {trade.type === 'BUY' ? t('dashboard.buy') : t('dashboard.sell')}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">

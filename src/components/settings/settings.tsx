@@ -1,5 +1,6 @@
 import { Key, Palette, Settings2, Workflow, CpuIcon } from 'lucide-react';
 import { useState } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { ApiKeysSettings } from './api-keys';
 import { AppearanceSettings } from './appearance';
 import { FlowsSettings } from './flows';
@@ -14,38 +15,39 @@ interface SettingsNavItem {
 }
 
 export function Settings() {
+  const { t } = useLanguage();
   const [selectedSection, setSelectedSection] = useState('models');
 
   const navigationItems: SettingsNavItem[] = [
     {
       id: 'general',
-      label: 'General',
+      label: t('settings.general'),
       icon: Settings2,
-      description: 'General application settings and preferences',
+      description: t('settings.generalDesc'),
     },
     {
       id: 'api',
-      label: 'API Keys',
+      label: t('settings.apiKeys'),
       icon: Key,
-      description: 'API endpoints and authentication',
+      description: t('settings.apiKeysDesc'),
     },
     {
       id: 'models',
-      label: 'Models',
+      label: t('settings.models'),
       icon: CpuIcon,
-      description: 'Local and cloud AI models',
+      description: t('settings.modelsDesc'),
     },
     {
       id: 'flows',
-      label: 'Flows',
+      label: t('settings.flows'),
       icon: Workflow,
-      description: 'Flow and node configuration',
+      description: t('settings.flowsDesc'),
     },
     {
       id: 'appearance',
-      label: 'Appearance',
+      label: t('settings.appearance'),
       icon: Palette,
-      description: 'Theme and display preferences',
+      description: t('settings.appearanceDesc'),
     },
   ];
 
@@ -72,7 +74,7 @@ export function Settings() {
         {/* Left Navigation Pane */}
         <div className="w-60 bg-white dark:bg-gray-800 flex-shrink-0">
           <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-            <h1 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Settings</h1>
+            <h1 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{t('nav.settings')}</h1>
           </div>
           <nav className="p-2">
             {navigationItems.map((item) => {

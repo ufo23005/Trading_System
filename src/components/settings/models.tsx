@@ -2,6 +2,7 @@ import { Cloud, Server } from 'lucide-react';
 import { useState } from 'react';
 import { CloudModels } from './models/cloud';
 import { OllamaSettings } from './models/ollama';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface ModelSection {
   id: string;
@@ -12,21 +13,22 @@ interface ModelSection {
 }
 
 export function Models() {
+  const { t } = useLanguage();
   const [selectedSection, setSelectedSection] = useState('cloud');
 
   const modelSections: ModelSection[] = [
     {
       id: 'cloud',
-      label: 'Cloud',
+      label: t('models.cloud'),
       icon: Cloud,
-      description: 'API-based models from cloud providers',
+      description: t('models.cloudDesc'),
       component: CloudModels,
     },
     {
       id: 'local',
-      label: 'Ollama',
+      label: t('models.ollama'),
       icon: Server,
-      description: 'Ollama models running locally on your machine',
+      description: t('models.ollamaDesc'),
       component: OllamaSettings,
     },
   ];
@@ -42,9 +44,9 @@ export function Models() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Models</h2>
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">{t('models.title')}</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          Manage your AI models from local and cloud providers.
+          {t('models.description')}
         </p>
       </div>
 

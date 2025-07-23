@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import { DollarSignIcon, TrendingUpIcon, AlertCircleIcon, FilterIcon, DownloadIcon, CpuIcon, CoinsIcon, CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 // Mock data - in a real app, this would come from API
 const monthlyCostData = [{
   name: 'Jan',
@@ -193,17 +194,22 @@ const apiServiceCosts = [{
 
 // Date picker component
 function DatePicker({ selectedDate, onDateChange, isOpen, onClose }) {
+  const { t } = useLanguage();
   const [currentMonth, setCurrentMonth] = useState(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1));
   const [viewMode, setViewMode] = useState('day'); // 'day', 'month', 'year'
   
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    t('calendar.january'), t('calendar.february'), t('calendar.march'), 
+    t('calendar.april'), t('calendar.may'), t('calendar.june'),
+    t('calendar.july'), t('calendar.august'), t('calendar.september'), 
+    t('calendar.october'), t('calendar.november'), t('calendar.december')
   ];
   
   const shortMonthNames = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    t('calendar.jan'), t('calendar.feb'), t('calendar.mar'), 
+    t('calendar.apr'), t('calendar.mayShort'), t('calendar.jun'),
+    t('calendar.jul'), t('calendar.aug'), t('calendar.sep'), 
+    t('calendar.oct'), t('calendar.nov'), t('calendar.dec')
   ];
   
   const getDaysInMonth = (date) => {
@@ -317,7 +323,7 @@ function DatePicker({ selectedDate, onDateChange, isOpen, onClose }) {
     return (
       <>
         <div className="grid grid-cols-7 gap-2 mb-3">
-          {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
+          {[t('calendar.su'), t('calendar.mo'), t('calendar.tu'), t('calendar.we'), t('calendar.th'), t('calendar.fr'), t('calendar.sa')].map(day => (
             <div key={day} className="h-10 w-10 text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center justify-center">
               {day}
             </div>
@@ -410,6 +416,7 @@ function DatePicker({ selectedDate, onDateChange, isOpen, onClose }) {
 
 // Service Filter component
 function ServiceFilter({ selectedServices, onServiceChange, isOpen, onClose }) {
+  const { t } = useLanguage();
   const filterDropdownRef = useRef(null);
   
   const services = [
@@ -470,9 +477,9 @@ function ServiceFilter({ selectedServices, onServiceChange, isOpen, onClose }) {
     >
       <div className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">Filter Services</h3>
+          <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">{t('apiCost.filterServices')}</h3>
           <span className="text-xs text-gray-500 dark:text-gray-400">
-            {selectedServices.length} of {services.length} selected
+            {selectedServices.length} / {services.length} {t('apiCost.selected')}
           </span>
         </div>
         <div className="flex gap-2">
@@ -480,13 +487,13 @@ function ServiceFilter({ selectedServices, onServiceChange, isOpen, onClose }) {
             onClick={handleSelectAll}
             className="px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
           >
-            Select All
+            {t('apiCost.selectAll')}
           </button>
           <button
             onClick={handleDeselectAll}
             className="px-3 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
           >
-            Clear All
+            {t('apiCost.clearAll')}
           </button>
         </div>
       </div>
@@ -514,6 +521,7 @@ function ServiceFilter({ selectedServices, onServiceChange, isOpen, onClose }) {
 }
 
 export function ApiCostMonitoring() {
+  const { t } = useLanguage();
   const [selectedDate, setSelectedDate] = useState(new Date(2024, 6, 1)); // July 2024
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -527,8 +535,10 @@ export function ApiCostMonitoring() {
   
   const formatDateDisplay = (date) => {
     const monthNames = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      t('calendar.january'), t('calendar.february'), t('calendar.march'), 
+      t('calendar.april'), t('calendar.may'), t('calendar.june'),
+      t('calendar.july'), t('calendar.august'), t('calendar.september'), 
+      t('calendar.october'), t('calendar.november'), t('calendar.december')
     ];
     return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
   };
@@ -629,7 +639,7 @@ export function ApiCostMonitoring() {
   return <div className="space-y-6 p-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
-          API Cost Monitoring
+          {t('apiCost.title')}
         </h1>
         <div className="flex space-x-3">
           <div className="relative" ref={datePickerRef}>
@@ -657,7 +667,7 @@ export function ApiCostMonitoring() {
               }`}
             >
               <FilterIcon className="h-4 w-4 mr-2" />
-              Filter
+              {t('apiCost.filter')}
               {selectedServices.length < 13 && (
                 <span className="ml-2 px-2 py-0.5 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full">
                   {selectedServices.length}
@@ -674,7 +684,7 @@ export function ApiCostMonitoring() {
           </div>
           <button className="flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm text-sm text-gray-700 dark:text-gray-300">
             <DownloadIcon className="h-4 w-4 mr-2" />
-            Export
+            {t('apiCost.export')}
           </button>
         </div>
       </div>
@@ -684,7 +694,7 @@ export function ApiCostMonitoring() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Total Monthly Cost
+                {t('apiCost.totalMonthlyCost')}
               </p>
               <p className="text-2xl font-bold text-gray-900 dark:text-white">
                 $978.00
@@ -698,7 +708,7 @@ export function ApiCostMonitoring() {
             <TrendingUpIcon className="h-4 w-4 text-red-500 mr-1" />
             <span className="text-red-500 font-medium">+11.2%</span>
             <span className="text-gray-500 dark:text-gray-400 ml-2">
-              from last month
+              {t('apiCost.fromLastMonth')}
             </span>
           </div>
         </div>
@@ -706,7 +716,7 @@ export function ApiCostMonitoring() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                LLM API Cost
+                {t('apiCost.llmApiCost')}
               </p>
               <p className="text-2xl font-bold text-gray-900 dark:text-white">
                 $908.00
@@ -718,7 +728,7 @@ export function ApiCostMonitoring() {
           </div>
           <div className="mt-4 flex items-center text-sm">
             <span className="text-gray-500 dark:text-gray-400">
-              92.8% of total API costs
+              92.8% {t('apiCost.ofTotalCosts')}
             </span>
           </div>
         </div>
@@ -726,7 +736,7 @@ export function ApiCostMonitoring() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Cost per Trade
+                {t('apiCost.costPerTrade')}
               </p>
               <p className="text-2xl font-bold text-gray-900 dark:text-white">
                 $1.95
@@ -740,7 +750,7 @@ export function ApiCostMonitoring() {
             <TrendingUpIcon className="h-4 w-4 text-red-500 mr-1" />
             <span className="text-red-500 font-medium">+0.20</span>
             <span className="text-gray-500 dark:text-gray-400 ml-2">
-              from last month
+              {t('apiCost.fromLastMonth')}
             </span>
           </div>
         </div>
@@ -750,7 +760,7 @@ export function ApiCostMonitoring() {
         {/* Monthly Costs by Provider */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-            Monthly Costs by LLM Provider
+            {t('apiCost.monthlyByProvider')}
           </h2>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
@@ -777,7 +787,7 @@ export function ApiCostMonitoring() {
         {/* Model Distribution */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-            LLM Model Cost Distribution
+            {t('apiCost.modelDistribution')}
           </h2>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
@@ -799,7 +809,7 @@ export function ApiCostMonitoring() {
         {/* Daily LLM Usage */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-            Daily LLM Usage
+            {t('apiCost.dailyLlmUsage')}
           </h2>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
@@ -815,8 +825,8 @@ export function ApiCostMonitoring() {
                 <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
                 <Tooltip />
                 <Legend />
-                <Line yAxisId="left" type="monotone" dataKey="tokens" stroke="#8884d8" name="Tokens Used" />
-                <Line yAxisId="right" type="monotone" dataKey="cost" stroke="#82ca9d" name="Cost ($)" />
+                <Line yAxisId="left" type="monotone" dataKey="tokens" stroke="#8884d8" name={t('apiCost.tokensUsed')} />
+                <Line yAxisId="right" type="monotone" dataKey="cost" stroke="#82ca9d" name={t('apiCost.costDollar')} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -826,7 +836,7 @@ export function ApiCostMonitoring() {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
-            LLM API Services Cost Breakdown
+            {t('apiCost.serviceBreakdown')}
           </h2>
         </div>
         <div className="overflow-x-auto">
@@ -834,16 +844,16 @@ export function ApiCostMonitoring() {
             <thead>
               <tr className="bg-gray-50 dark:bg-gray-700 text-left">
                 <th className="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  LLM Service
+                  {t('apiCost.llmService')}
                 </th>
                 <th className="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Usage
+                  {t('apiCost.usage')}
                 </th>
                 <th className="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Cost
+                  {t('apiCost.cost')}
                 </th>
                 <th className="px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Change
+                  {t('apiCost.change')}
                 </th>
               </tr>
             </thead>
@@ -853,14 +863,14 @@ export function ApiCostMonitoring() {
                     {service.service}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                    {service.usage}
+                    {service.usage === 'Various' ? t('apiCost.various') : service.usage}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                     {service.cost}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <span className={`inline-flex items-center ${service.change === '0%' ? 'text-gray-500 dark:text-gray-400' : service.change === 'New' ? 'text-blue-600 dark:text-blue-400' : service.change.startsWith('+') ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>
-                      {service.change}
+                      {service.change === 'New' ? t('apiCost.new') : service.change}
                     </span>
                   </td>
                 </tr>)}
@@ -876,8 +886,7 @@ export function ApiCostMonitoring() {
           </div>
           <div className="ml-3">
             <p className="text-sm text-yellow-700 dark:text-yellow-400">
-              OpenAI GPT-4.1 costs have increased by 12% this month. Consider
-              using GPT-o3 for less critical tasks to optimize costs.
+              {t('apiCost.warningMessage')}
             </p>
           </div>
         </div>
