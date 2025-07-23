@@ -212,7 +212,7 @@ export function TradingDashboard() {
         </div>
       </div>
       {/* Charts and Data Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-96">
         {/* Portfolio Allocation */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
@@ -243,11 +243,11 @@ export function TradingDashboard() {
           </div>
         </div>
         {/* Account Balance History */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex flex-col h-full">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
             {t('dashboard.accountBalanceHistory')}
           </h2>
-          <div className="h-64">
+          <div className="flex-1 min-h-0">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={accountHistoryData} margin={{
               top: 5,
@@ -267,11 +267,11 @@ export function TradingDashboard() {
           </div>
         </div>
         {/* Profit & Loss Analysis */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex flex-col h-full">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
             {t('dashboard.profitLossAnalysis')}
           </h2>
-          <div className="h-64">
+          <div className="flex-1 min-h-0">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={profitLossData} margin={{
               top: 5,
