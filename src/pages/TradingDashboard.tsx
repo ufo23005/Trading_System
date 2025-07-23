@@ -1,6 +1,5 @@
-import React from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { ArrowUpIcon, ArrowDownIcon, ClockIcon, DollarSignIcon, PercentIcon, TrendingUpIcon, CoinsIcon } from 'lucide-react';
+import { ArrowUpIcon, ClockIcon, DollarSignIcon, PercentIcon, TrendingUpIcon, CoinsIcon } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 // Mock data - in a real app, this would come from API
 const portfolioData = [{

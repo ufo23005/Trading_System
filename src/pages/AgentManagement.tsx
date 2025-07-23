@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '@xyflow/react/dist/style.css';
 import { PlusIcon, SearchIcon, SettingsIcon, PlayIcon, PauseIcon, TrashIcon, EditIcon, CpuIcon } from 'lucide-react';
 import { ReactFlow, Background, Controls, MiniMap } from '@xyflow/react';
 import { useLanguage } from '../contexts/LanguageContext';
+
+// Agent interface definition
+interface Agent {
+  id: number;
+  name: string;
+  type: string;
+  status: string;
+  lastRun: string;
+  performance: string;
+  description: string;
+}
 // Mock data - in a real app, this would come from API - moved inside component for translations
 // Mock flow nodes and edges for the Flow Editor will be created inside the component
 const initialEdges = [{
@@ -28,10 +39,10 @@ const initialEdges = [{
 }];
 export function AgentManagement() {
   const { t } = useLanguage();
-  const [selectedAgent, setSelectedAgent] = useState(null);
+  const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   
   // Mock data with translated content
-  const agentsList = [{
+  const agentsList: Agent[] = [{
     id: 1,
     name: t('agents.btcAnalyst'),
     type: t('agents.cryptocurrency'),
@@ -123,8 +134,8 @@ export function AgentManagement() {
     }
   }];
   
-  const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
+  const nodes = initialNodes;
+  const edges = initialEdges;
   return <div className="space-y-6 p-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white">

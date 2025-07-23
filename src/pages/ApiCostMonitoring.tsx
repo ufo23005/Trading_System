@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import { DollarSignIcon, TrendingUpIcon, AlertCircleIcon, FilterIcon, DownloadIcon, CpuIcon, CoinsIcon, CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -193,7 +193,14 @@ const apiServiceCosts = [{
 }];
 
 // Date picker component
-function DatePicker({ selectedDate, onDateChange, isOpen, onClose }) {
+interface DatePickerProps {
+  selectedDate: Date;
+  onDateChange: (date: Date) => void;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function DatePicker({ selectedDate, onDateChange, isOpen, onClose }: DatePickerProps) {
   const { t } = useLanguage();
   const [currentMonth, setCurrentMonth] = useState(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1));
   const [viewMode, setViewMode] = useState('day'); // 'day', 'month', 'year'
@@ -212,11 +219,11 @@ function DatePicker({ selectedDate, onDateChange, isOpen, onClose }) {
     t('calendar.oct'), t('calendar.nov'), t('calendar.dec')
   ];
   
-  const getDaysInMonth = (date) => {
+  const getDaysInMonth = (date: Date): number => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   };
   
-  const getFirstDayOfMonth = (date) => {
+  const getFirstDayOfMonth = (date: Date): number => {
     return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
   };
   
@@ -240,18 +247,18 @@ function DatePicker({ selectedDate, onDateChange, isOpen, onClose }) {
     }
   };
   
-  const handleDateSelect = (day) => {
+  const handleDateSelect = (day: number) => {
     const newDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
     onDateChange(newDate);
     onClose();
   };
   
-  const handleMonthSelect = (monthIndex) => {
+  const handleMonthSelect = (monthIndex: number) => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), monthIndex, 1));
     setViewMode('day');
   };
   
-  const handleYearSelect = (year) => {
+  const handleYearSelect = (year: number) => {
     setCurrentMonth(new Date(year, currentMonth.getMonth(), 1));
     setViewMode('month');
   };
@@ -415,9 +422,16 @@ function DatePicker({ selectedDate, onDateChange, isOpen, onClose }) {
 }
 
 // Service Filter component
-function ServiceFilter({ selectedServices, onServiceChange, isOpen, onClose }) {
+interface ServiceFilterProps {
+  selectedServices: string[];
+  onServiceChange: (services: string[]) => void;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function ServiceFilter({ selectedServices, onServiceChange, isOpen, onClose }: ServiceFilterProps) {
   const { t } = useLanguage();
-  const filterDropdownRef = useRef(null);
+  const filterDropdownRef = useRef<HTMLDivElement>(null);
   
   const services = [
     { id: 'gpt-4o', name: 'OpenAI API (GPT-4o)' },
@@ -435,7 +449,7 @@ function ServiceFilter({ selectedServices, onServiceChange, isOpen, onClose }) {
     { id: 'other', name: 'Other Services' }
   ];
   
-  const handleServiceToggle = (serviceId) => {
+  const handleServiceToggle = (serviceId: string) => {
     const updatedServices = selectedServices.includes(serviceId)
       ? selectedServices.filter(id => id !== serviceId)
       : [...selectedServices, serviceId];
@@ -453,8 +467,8 @@ function ServiceFilter({ selectedServices, onServiceChange, isOpen, onClose }) {
   
   // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (filterDropdownRef.current && !filterDropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (filterDropdownRef.current && !filterDropdownRef.current.contains(event.target as Node)) {
         onClose();
       }
     };
@@ -530,10 +544,10 @@ export function ApiCostMonitoring() {
     'ollama-scout', 'ollama-maverick', 'deepseek-r1', 'deepseek-v3', 
     'gemini-2.5-pro', 'gemini-2.5-flash', 'other'
   ]); // Initially all services selected
-  const datePickerRef = useRef(null);
-  const filterRef = useRef(null);
+  const datePickerRef = useRef<HTMLDivElement>(null);
+  const filterRef = useRef<HTMLDivElement>(null);
   
-  const formatDateDisplay = (date) => {
+  const formatDateDisplay = (date: Date): string => {
     const monthNames = [
       t('calendar.january'), t('calendar.february'), t('calendar.march'), 
       t('calendar.april'), t('calendar.may'), t('calendar.june'),
@@ -543,19 +557,19 @@ export function ApiCostMonitoring() {
     return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
   };
   
-  const handleDateChange = (newDate) => {
+  const handleDateChange = (newDate: Date) => {
     setSelectedDate(newDate);
     // Filter data based on the selected date
     filterDataByDate(newDate);
   };
   
-  const handleServiceChange = (updatedServices) => {
+  const handleServiceChange = (updatedServices: string[]) => {
     setSelectedServices(updatedServices);
     // Filter data based on selected services
     filterDataByServices(updatedServices);
   };
   
-  const filterDataByDate = (date) => {
+  const filterDataByDate = (date: Date) => {
     // In a real app, this would filter data from API based on the selected date
     // For now, we'll just log the filtering action
     const monthName = date.toLocaleString('default', { month: 'long' });
@@ -568,7 +582,7 @@ export function ApiCostMonitoring() {
     updateDataForSelectedPeriod(date);
   };
   
-  const updateDataForSelectedPeriod = (date) => {
+  const updateDataForSelectedPeriod = (date: Date) => {
     // This would typically update your data arrays based on the selected date
     // For demonstration, we'll show how this would work
     const month = date.getMonth();
@@ -589,13 +603,13 @@ export function ApiCostMonitoring() {
     // 3. Charts would automatically re-render with new data
   };
   
-  const filterDataByServices = (services) => {
+  const filterDataByServices = (services: string[]) => {
     // In a real app, this would filter charts and table data based on selected services
     console.log('Filtering data for services:', services);
     
     // Example logic for filtering services
-    const serviceNames = services.map(serviceId => {
-      const serviceMap = {
+    const serviceNames = services.map((serviceId: string) => {
+      const serviceMap: Record<string, string> = {
         'gpt-4o': 'OpenAI API (GPT-4o)',
         'gpt-4.1': 'OpenAI API (GPT-4.1)', 
         'gpt-o3': 'OpenAI API (GPT-o3)',
@@ -624,8 +638,8 @@ export function ApiCostMonitoring() {
   
   // Close date picker when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (datePickerRef.current && !datePickerRef.current.contains(event.target as Node)) {
         setIsDatePickerOpen(false);
       }
     };
@@ -796,7 +810,7 @@ export function ApiCostMonitoring() {
                 name,
                 percent
               }) => `${name}: ${(percent * 100).toFixed(0)}%`}>
-                  {modelDistributionData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
+                  {modelDistributionData.map((_, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
                 </Pie>
                 <Tooltip formatter={value => `$${value}`} />
                 <Legend />

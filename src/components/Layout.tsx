@@ -1,9 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
-import { BarChart3Icon, CoinsIcon, CpuIcon, SettingsIcon, BellIcon, UserIcon, Settings2, EyeIcon, EyeOffIcon, ChevronDownIcon } from 'lucide-react';
+import { BarChart3Icon, CoinsIcon, CpuIcon, SettingsIcon, BellIcon, UserIcon, Settings2, EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 // Auth Modal Component
-function AuthModal({ isOpen, onClose }) {
+interface AuthModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const { t } = useLanguage();
   const [currentView, setCurrentView] = useState('login'); // 'login', 'register', 'forgot'
   const [showPassword, setShowPassword] = useState(false);
@@ -13,12 +18,12 @@ function AuthModal({ isOpen, onClose }) {
     displayName: '',
     email: ''
   });
-  const modalRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   // Close modal when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
         onClose();
       }
     };
@@ -41,11 +46,11 @@ function AuthModal({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle form submission based on current view
     console.log(`${currentView} form submitted:`, formData);
