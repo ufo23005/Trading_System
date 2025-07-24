@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { EyeIcon, EyeOffIcon, SaveIcon, RotateCcwIcon, CheckCircleIcon, CoinsIcon, TrendingUpIcon, CpuIcon, DatabaseIcon, LinkIcon, NewspaperIcon } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { PasswordAuthModal } from './PasswordAuthModal';
 
 interface ApiKey {
   id: string;
@@ -25,6 +26,7 @@ export function ApiKeysSettings() {
   const [apiKeys, setApiKeys] = useState<Record<string, string>>({});
   const [hasChanges, setHasChanges] = useState(false);
   const [savedKeys, setSavedKeys] = useState<Set<string>>(new Set());
+  const [authModal, setAuthModal] = useState({ isOpen: false, action: '', keyId: '' });
 
   const categories: ApiCategory[] = [
     {
@@ -107,10 +109,16 @@ export function ApiKeysSettings() {
   ];
 
   const togglePasswordVisibility = (keyId: string) => {
-    setShowPasswords(prev => ({
-      ...prev,
-      [keyId]: !prev[keyId]
-    }));
+    if (!showPasswords[keyId]) {
+      // Show password requires authentication
+      setAuthModal({ isOpen: true, action: 'showPassword', keyId });
+    } else {
+      // Hide password doesn't require authentication
+      setShowPasswords(prev => ({
+        ...prev,
+        [keyId]: false
+      }));
+    }
   };
 
   const handleKeyChange = (keyId: string, value: string) => {
@@ -131,6 +139,10 @@ export function ApiKeysSettings() {
   };
 
   const saveAllKeys = () => {
+    setAuthModal({ isOpen: true, action: 'save', keyId: '' });
+  };
+
+  const handleSaveAfterAuth = () => {
     // In a real app, this would save to backend/localStorage
     console.log('Saving API keys:', apiKeys);
     
@@ -144,6 +156,10 @@ export function ApiKeysSettings() {
   };
 
   const resetKeys = () => {
+    setAuthModal({ isOpen: true, action: 'reset', keyId: '' });
+  };
+
+  const handleResetAfterAuth = () => {
     setApiKeys({});
     setSavedKeys(new Set());
     setHasChanges(false);
@@ -191,6 +207,25 @@ export function ApiKeysSettings() {
         </div>
       </div>
     );
+  };
+
+  const handleAuthSuccess = () => {
+    const { action, keyId } = authModal;
+    
+    switch (action) {
+      case 'showPassword':
+        setShowPasswords(prev => ({
+          ...prev,
+          [keyId]: true
+        }));
+        break;
+      case 'save':
+        handleSaveAfterAuth();
+        break;
+      case 'reset':
+        handleResetAfterAuth();
+        break;
+    }
   };
 
   return (
@@ -277,6 +312,25 @@ export function ApiKeysSettings() {
           <strong>{t('apiKeys.securityNotice')}:</strong> {t('apiKeys.securityMessage')}
         </div>
       </div>
+
+      {/* Password Authentication Modal */}
+      <PasswordAuthModal
+        isOpen={authModal.isOpen}
+        onClose={() => setAuthModal({ isOpen: false, action: '', keyId: '' })}
+        onSuccess={handleAuthSuccess}
+        title={
+          authModal.action === 'showPassword' ? t('passwordAuth.titleShowKey') :
+          authModal.action === 'save' ? t('passwordAuth.titleSave') :
+          authModal.action === 'reset' ? t('passwordAuth.titleReset') :
+          t('passwordAuth.title')
+        }
+        description={
+          authModal.action === 'showPassword' ? t('passwordAuth.descShowKey') :
+          authModal.action === 'save' ? t('passwordAuth.descSave') :
+          authModal.action === 'reset' ? t('passwordAuth.descReset') :
+          t('passwordAuth.description')
+        }
+      />
     </div>
   );
 }

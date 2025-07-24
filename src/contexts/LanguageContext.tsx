@@ -334,6 +334,7 @@ const translations = {
     'common.saveAll': 'Save All',
     'common.reset': 'Reset',
     'common.cancel': 'Cancel',
+    'common.confirm': 'Confirm',
     'common.unsavedChanges': 'You have unsaved changes',
     'common.allChangesSaved': 'All changes saved',
     'common.language': 'Language',
@@ -355,6 +356,19 @@ const translations = {
     'alerts.appearanceSaved': 'Appearance settings saved successfully!',
     'alerts.confirmReset': 'Are you sure you want to reset all settings to default?',
     'alerts.confirmAppearanceReset': 'Are you sure you want to reset all appearance settings to default?',
+    
+    // Password Authentication
+    'passwordAuth.title': 'Authentication Required',
+    'passwordAuth.description': 'Please enter your password to continue',
+    'passwordAuth.password': 'Password',
+    'passwordAuth.enterPassword': 'Enter your password',
+    'passwordAuth.incorrectPassword': 'Incorrect password. Please try again.',
+    'passwordAuth.titleShowKey': 'Show API Key',
+    'passwordAuth.descShowKey': 'Enter your password to view the API key',
+    'passwordAuth.titleSave': 'Save Changes',
+    'passwordAuth.descSave': 'Enter your password to save all API keys',
+    'passwordAuth.titleReset': 'Reset Keys',
+    'passwordAuth.descReset': 'Enter your password to reset all API keys',
     
     // General Settings Details
     'general.userProfileTitle': 'User Profile',
@@ -890,6 +904,7 @@ const translations = {
     'common.saveAll': '全部儲存',
     'common.reset': '重設',
     'common.cancel': '取消',
+    'common.confirm': '確認',
     'common.unsavedChanges': '您有未儲存的變更',
     'common.allChangesSaved': '所有變更已儲存',
     'common.language': '語言',
@@ -911,6 +926,19 @@ const translations = {
     'alerts.appearanceSaved': '外觀設定已成功儲存！',
     'alerts.confirmReset': '您確定要將所有設定重設為預設值嗎？',
     'alerts.confirmAppearanceReset': '您確定要將所有外觀設定重設為預設值嗎？',
+    
+    // Password Authentication
+    'passwordAuth.title': '需要驗證',
+    'passwordAuth.description': '請輸入密碼以繼續',
+    'passwordAuth.password': '密碼',
+    'passwordAuth.enterPassword': '請輸入您的密碼',
+    'passwordAuth.incorrectPassword': '密碼錯誤，請重試。',
+    'passwordAuth.titleShowKey': '顯示 API 金鑰',
+    'passwordAuth.descShowKey': '請輸入密碼以查看 API 金鑰',
+    'passwordAuth.titleSave': '儲存變更',
+    'passwordAuth.descSave': '請輸入密碼以儲存所有 API 金鑰',
+    'passwordAuth.titleReset': '重設金鑰',
+    'passwordAuth.descReset': '請輸入密碼以重設所有 API 金鑰',
     
     // Time Options
     'general.5seconds': '5 秒',
@@ -1370,6 +1398,7 @@ const translations = {
     'common.saveAll': '全部保存',
     'common.reset': '重置',
     'common.cancel': '取消',
+    'common.confirm': '确认',
     'common.unsavedChanges': '您有未保存的更改',
     'common.allChangesSaved': '所有更改已保存',
     'common.language': '语言',
@@ -1383,6 +1412,19 @@ const translations = {
     'alerts.appearanceSaved': '外观设置已成功保存！',
     'alerts.confirmReset': '您确定要将所有设置重置为默认值吗？',
     'alerts.confirmAppearanceReset': '您确定要将所有外观设置重置为默认值吗？',
+    
+    // Password Authentication
+    'passwordAuth.title': '需要验证',
+    'passwordAuth.description': '请输入密码以继续',
+    'passwordAuth.password': '密码',
+    'passwordAuth.enterPassword': '请输入您的密码',
+    'passwordAuth.incorrectPassword': '密码错误，请重试。',
+    'passwordAuth.titleShowKey': '显示 API 密钥',
+    'passwordAuth.descShowKey': '请输入密码以查看 API 密钥',
+    'passwordAuth.titleSave': '保存更改',
+    'passwordAuth.descSave': '请输入密码以保存所有 API 密钥',
+    'passwordAuth.titleReset': '重置密钥',
+    'passwordAuth.descReset': '请输入密码以重置所有 API 密钥',
     
     // Appearance Settings Details
     'appearance.themeSettingsTitle': '主题设置',
@@ -1960,6 +2002,7 @@ const translations = {
     'common.saveAll': 'すべて保存',
     'common.reset': 'リセット',
     'common.cancel': 'キャンセル',
+    'common.confirm': '確認',
     'common.unsavedChanges': '未保存の変更があります',
     'common.allChangesSaved': 'すべての変更が保存されました',
     'common.language': '言語',
@@ -1973,6 +2016,19 @@ const translations = {
     'alerts.appearanceSaved': '外観設定が正常に保存されました！',
     'alerts.confirmReset': 'すべての設定をデフォルトにリセットしてもよろしいですか？',
     'alerts.confirmAppearanceReset': 'すべての外観設定をデフォルトにリセットしてもよろしいですか？',
+    
+    // Password Authentication
+    'passwordAuth.title': '認証が必要です',
+    'passwordAuth.description': '続行するにはパスワードを入力してください',
+    'passwordAuth.password': 'パスワード',
+    'passwordAuth.enterPassword': 'パスワードを入力してください',
+    'passwordAuth.incorrectPassword': 'パスワードが正しくありません。もう一度お試しください。',
+    'passwordAuth.titleShowKey': 'APIキーを表示',
+    'passwordAuth.descShowKey': 'APIキーを表示するにはパスワードを入力してください',
+    'passwordAuth.titleSave': '変更を保存',
+    'passwordAuth.descSave': 'すべてのAPIキーを保存するにはパスワードを入力してください',
+    'passwordAuth.titleReset': 'キーをリセット',
+    'passwordAuth.descReset': 'すべてのAPIキーをリセットするにはパスワードを入力してください',
   },
   
   ko: {
@@ -2450,6 +2506,7 @@ const translations = {
     'common.saveAll': '모두 저장',
     'common.reset': '재설정',
     'common.cancel': '취소',
+    'common.confirm': '확인',
     'common.unsavedChanges': '저장되지 않은 변경사항이 있습니다',
     'common.allChangesSaved': '모든 변경사항이 저장되었습니다',
     'common.language': '언어',
@@ -2463,6 +2520,19 @@ const translations = {
     'alerts.appearanceSaved': '외관 설정이 성공적으로 저장되었습니다!',
     'alerts.confirmReset': '모든 설정을 기본값으로 재설정하시겠습니까?',
     'alerts.confirmAppearanceReset': '모든 외관 설정을 기본값으로 재설정하시겠습니까?',
+    
+    // Password Authentication
+    'passwordAuth.title': '인증 필요',
+    'passwordAuth.description': '계속하려면 비밀번호를 입력하세요',
+    'passwordAuth.password': '비밀번호',
+    'passwordAuth.enterPassword': '비밀번호를 입력하세요',
+    'passwordAuth.incorrectPassword': '비밀번호가 틀렸습니다. 다시 시도해주세요.',
+    'passwordAuth.titleShowKey': 'API 키 표시',
+    'passwordAuth.descShowKey': 'API 키를 보려면 비밀번호를 입력하세요',
+    'passwordAuth.titleSave': '변경 사항 저장',
+    'passwordAuth.descSave': '모든 API 키를 저장하려면 비밀번호를 입력하세요',
+    'passwordAuth.titleReset': '키 재설정',
+    'passwordAuth.descReset': '모든 API 키를 재설정하려면 비밀번호를 입력하세요',
   }
 };
 
