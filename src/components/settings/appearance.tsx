@@ -152,7 +152,11 @@ export function AppearanceSettings() {
                     : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
                 }`}
               >
-                <SunIcon className="h-5 w-5" />
+                <SunIcon className={`h-5 w-5 ${
+                  settings.theme === 'light' 
+                    ? 'text-blue-700 dark:text-blue-300' 
+                    : 'text-gray-800 dark:text-gray-200'
+                }`} />
                 <span className={`text-sm font-medium ${
                   settings.theme === 'light' 
                     ? 'text-blue-700 dark:text-blue-300' 
@@ -167,7 +171,11 @@ export function AppearanceSettings() {
                     : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
                 }`}
               >
-                <MoonIcon className="h-5 w-5" />
+                <MoonIcon className={`h-5 w-5 ${
+                  settings.theme === 'dark' 
+                    ? 'text-blue-700 dark:text-blue-300' 
+                    : 'text-gray-800 dark:text-gray-200'
+                }`} />
                 <span className={`text-sm font-medium ${
                   settings.theme === 'dark' 
                     ? 'text-blue-700 dark:text-blue-300' 
@@ -182,7 +190,11 @@ export function AppearanceSettings() {
                     : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
                 }`}
               >
-                <ComputerIcon className="h-5 w-5" />
+                <ComputerIcon className={`h-5 w-5 ${
+                  settings.theme === 'system' 
+                    ? 'text-blue-700 dark:text-blue-300' 
+                    : 'text-gray-800 dark:text-gray-200'
+                }`} />
                 <span className={`text-sm font-medium ${
                   settings.theme === 'system' 
                     ? 'text-blue-700 dark:text-blue-300' 
