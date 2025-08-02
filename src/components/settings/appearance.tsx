@@ -153,7 +153,11 @@ export function AppearanceSettings() {
                 }`}
               >
                 <SunIcon className="h-5 w-5" />
-                <span className="text-sm font-medium">{t('appearance.light')}</span>
+                <span className={`text-sm font-medium ${
+                  settings.theme === 'light' 
+                    ? 'text-blue-700 dark:text-blue-300' 
+                    : 'text-gray-800 dark:text-gray-200'
+                }`}>{t('appearance.light')}</span>
               </button>
               <button
                 onClick={() => updateSetting('theme', 'dark')}
@@ -164,7 +168,11 @@ export function AppearanceSettings() {
                 }`}
               >
                 <MoonIcon className="h-5 w-5" />
-                <span className="text-sm font-medium">{t('appearance.dark')}</span>
+                <span className={`text-sm font-medium ${
+                  settings.theme === 'dark' 
+                    ? 'text-blue-700 dark:text-blue-300' 
+                    : 'text-gray-800 dark:text-gray-200'
+                }`}>{t('appearance.dark')}</span>
               </button>
               <button
                 onClick={() => updateSetting('theme', 'system')}
@@ -175,7 +183,11 @@ export function AppearanceSettings() {
                 }`}
               >
                 <ComputerIcon className="h-5 w-5" />
-                <span className="text-sm font-medium">{t('appearance.system')}</span>
+                <span className={`text-sm font-medium ${
+                  settings.theme === 'system' 
+                    ? 'text-blue-700 dark:text-blue-300' 
+                    : 'text-gray-800 dark:text-gray-200'
+                }`}>{t('appearance.system')}</span>
               </button>
             </div>
           </div>
@@ -195,7 +207,11 @@ export function AppearanceSettings() {
                   }`}
                 >
                   <div className={`w-4 h-4 rounded-full ${color.color}`}></div>
-                  <span className="text-sm">{color.name}</span>
+                  <span className={`text-sm font-medium ${
+                    settings.accentColor === color.value 
+                      ? 'text-gray-800 dark:text-gray-200' 
+                      : 'text-gray-700 dark:text-gray-300'
+                  }`}>{color.name}</span>
                 </button>
               ))}
             </div>
